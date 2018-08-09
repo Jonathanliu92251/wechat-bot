@@ -1,4 +1,5 @@
 ## list of wechat
+----------+-------------------------------------+-------------------------
 tuling.py | wechat robot, w/ Tuling backend API | http://www.tuling123.com
 tuling-specUser.py | chat service, restricted for specific wechat-usergroup| https://github.com/littlecodersh/ItChat
 watson-console.py | console-based example for waston-conversation
@@ -6,13 +7,13 @@ watson-wechat.py | wechat as client | https://github.com/watson-developer-cloud/
 watson-tuling-wechat.py | wechat client + 2*backends ( # for Tuling, #IBM for Watson )
 
 ## how to run
-0. install python runtime
-1. install itchat: pip install itchat
-2. apply service from Tuling ( www.tuling123.com )
-3. apply service & create conversation from IBM Bluemix ( bluemix.net )
-4. install watson SDK: $ sudo -H pip install --ignore-installed six watson-developer-cloud
-5. modify credentials
-6. python xx.py 
+- 1 install python runtime
+- 2 install itchat: pip install itchat
+- 3. apply service from Tuling ( www.tuling123.com )
+- 3. apply service & create conversation from IBM Bluemix ( bluemix.net )
+- 4. install watson SDK: $ sudo -H pip install --ignore-installed six watson-developer-cloud
+- 5. modify credentials
+- 6. python xx.py 
 
 ## list of console
 example1.js
