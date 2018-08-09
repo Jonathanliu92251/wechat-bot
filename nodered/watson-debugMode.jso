@@ -1,0 +1,207 @@
+tson-conversation-v1",
+        "z": "7ec886bd.65ed1",
+        "name": "US-S-Conversation",
+        "workspaceid": "d3e50587-f36a-4bdf-bf3e-38c382e8d63a",
+        "multiuser": false,
+        "context": true,
+        "default-endpoint": true,
+        "service-endpoint": "https://gateway.watsonplatform.net/conversation/api",
+        "x": 407,
+        "y": 226.75,
+        "wires": [
+            [
+                "a1820886.44692",
+                "96a62d4d.333b"
+            ]
+        ]
+    },
+    {
+        "id": "ecfa5802.2062e8",
+        "type": "inject",
+        "z": "7ec886bd.65ed1",
+        "name": "",
+        "topic": "",
+        "payload": "Hello",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 127,
+        "y": 220.5,
+        "wires": [
+            [
+                "d1a219b6.423a7"
+            ]
+        ]
+    },
+    {
+        "id": "780018f2.e82318",
+        "type": "inject",
+        "z": "7ec886bd.65ed1",
+        "name": "",
+        "topic": "",
+        "payload": "turn on lights",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 137,
+        "y": 275,
+        "wires": [
+            [
+                "d1a219b6.423a7"
+            ]
+        ]
+    },
+    {
+        "id": "92f7d0f1.1843c8",
+        "type": "http in",
+        "z": "7ec886bd.65ed1",
+        "name": "Web Init",
+        "url": "/info",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 138,
+        "y": 87.5,
+        "wires": [
+            [
+                "c6de1616.404a4"
+            ]
+        ]
+    },
+    {
+        "id": "6065827f.81507c",
+        "type": "http response",
+        "z": "7ec886bd.65ed1",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 757,
+        "y": 87.75,
+        "wires": []
+    },
+    {
+        "id": "c6de1616.404a4",
+        "type": "template",
+        "z": "7ec886bd.65ed1",
+        "name": "Input Form",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n<body>\n\n<form action=\"/ask\" method=\"get\" target=\"_blank\">\n  Qestion: <input type=\"text\" name=\"question\" /><br />\n  <input type=\"submit\" value=\"Submit\" />\n</form>\n\n<p>请单击确认按钮，输入会发送到服务器上名为 \"form_action.asp\" 的页面。</p>\n\n</body>\n</html>",
+        "output": "str",
+        "x": 324.5,
+        "y": 87,
+        "wires": [
+            [
+                "6065827f.81507c"
+            ]
+        ]
+    },
+    {
+        "id": "f122f9f.ef9eb88",
+        "type": "http in",
+        "z": "7ec886bd.65ed1",
+        "name": "Ask Bot",
+        "url": "/ask",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 125,
+        "y": 150.5,
+        "wires": [
+            [
+                "985768fa.9f6978"
+            ]
+        ]
+    },
+    {
+        "id": "dd8fd81b.41af8",
+        "type": "http response",
+        "z": "7ec886bd.65ed1",
+        "name": "",
+        "statusCode": "200",
+        "headers": {
+            "content-type": "text/plain"
+        },
+        "x": 770,
+        "y": 156,
+        "wires": []
+    },
+    {
+        "id": "985768fa.9f6978",
+        "type": "function",
+        "z": "7ec886bd.65ed1",
+        "name": "Question",
+        "func": "msg.payload = msg.payload.question\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 315,
+        "y": 150,
+        "wires": [
+            [
+                "d1a219b6.423a7",
+                "96a62d4d.333b"
+            ]
+        ]
+    },
+    {
+        "id": "a1820886.44692",
+        "type": "change",
+        "z": "7ec886bd.65ed1",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.output.text",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 621.5,
+        "y": 224,
+        "wires": [
+            [
+                "dd8fd81b.41af8"
+            ]
+        ]
+    },
+    {
+        "id": "1a6e15d6.ac2bf2",
+        "type": "cloudant out",
+        "z": "7ec886bd.65ed1",
+        "name": "Dialogue Store",
+        "cloudant": "",
+        "database": "conversation-record",
+        "service": "nodered-jon001-cloudantNoSQLDB",
+        "payonly": true,
+        "operation": "insert",
+        "x": 625.5,
+        "y": 285.5,
+        "wires": []
+    },
+    {
+        "id": "96a62d4d.333b",
+        "type": "function",
+        "z": "7ec886bd.65ed1",
+        "name": "TimeStamp",
+        "func": "msg.happenTime = new Date();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 549,
+        "y": 358,
+        "wires": [
+            [
+                "1a6e15d6.ac2bf2"
+            ]
+        ]
+    }
+]
