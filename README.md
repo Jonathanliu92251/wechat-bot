@@ -39,7 +39,7 @@ watson-tuling-wechat.py | wechat client + 2*backends ( # for Tuling, #IBM for Wa
 
 ## List of nodered
 watson-debugMode.json | waston-conversation, running in debug mode
-|:-----+:------|
+|:-----|:------|
 watson-sockets.js | run in web mode, socket communication
 
 ## How to modify & debug
